@@ -91,3 +91,4 @@ nb-configuration.xml
 *.txt
 *.png
 .png
+*.lift
