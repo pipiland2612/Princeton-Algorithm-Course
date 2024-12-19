@@ -3,10 +3,10 @@ import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
-    int n;
-    int nSquared;
-    int trials;
-    double[] results;
+    private final int n;
+    private final int nSquared;
+    private final int trials;
+    private final double[] results;
     // perform independent trials on an n-by-n grid
     public PercolationStats(int n, int trials){
         if(n <= 0 || trials <= 0)throw new IllegalArgumentException("Invalid");
