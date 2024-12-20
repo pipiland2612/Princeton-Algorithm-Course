@@ -11,7 +11,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
     }
     private Node<Item> head, tail;
-    int size;
+    private int size;
     // construct an empty deque
     public Deque(){
         head = new Node<>(null);
@@ -108,6 +108,9 @@ public class Deque<Item> implements Iterable<Item> {
         public void remove(){
             throw new UnsupportedOperationException();
         }
+    }
+
+    public static void main(String[] args) {
     }
 
 }
