@@ -23,21 +23,21 @@ I decided to dive into algorithms and data structures to strengthen my computer 
 - Mastered different approaches to connectivity problems
 - Learned to analyze algorithm efficiency
 - Understood the importance of algorithmic improvements
-- **Challenge overcome:** Understanding path compression optimization
+- **Challenge overcome:** Percolation implementation and calculating percolation statistics
 
 ##### Week 2: Stacks and Queues
 **What I Learned:**
 - Implemented fundamental data structures from scratch
 - Gained confidence in working with linked structures
 - Applied generic programming concepts
-- **Favorite implementation:** Double-ended queue
+- **Favorite implementation:** Implement queue and stack using resizing array
 
 ##### Week 3: Sorting
 **Insights Gained:**
 - Discovered the beauty of divide-and-conquer algorithms
 - Learned when to use different sorting approaches
 - Understood stability in sorting
-- **Most challenging concept:** Quicksort partitioning
+- **Remarkable concept:** Quicksort partitioning
 
 ##### Week 4: Priority Queues & Elementary Symbol Tables
 **Key Achievements:**
