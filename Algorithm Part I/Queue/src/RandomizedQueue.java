@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class RandomizedQueue<T> implements Iterable<T> {
+public class RandomizedQueue<Item> implements Iterable<Item> {
 
-    private final List<T> list;
+    private final List<Item> list;
 
     public RandomizedQueue() {
         list = new ArrayList<>();
@@ -20,7 +20,7 @@ public class RandomizedQueue<T> implements Iterable<T> {
         return list.size();
     }
 
-    public void enqueue(T item) {
+    public void enqueue(Item item) {
         if (item == null) {
             throw new java.lang.NullPointerException();
         }
@@ -35,20 +35,20 @@ public class RandomizedQueue<T> implements Iterable<T> {
     }
     
 
-    public T dequeue() {
+    public Item dequeue() {
         return list.remove(randomIndex());
     }
 
 
-    public T sample() {
+    public Item sample() {
         return list.get(randomIndex());
     }
 
-    private class RandomizedQueueIterator implements Iterator<T> {
+    private class RandomizedQueueIterator implements Iterator<Item> {
         public boolean hasNext() {
             return size() > 0;
         }
-        public T next() {
+        public Item next() {
             if (isEmpty()) {
                 throw new java.util.NoSuchElementException();
             }
@@ -60,7 +60,7 @@ public class RandomizedQueue<T> implements Iterable<T> {
     }
 
 
-    public Iterator<T> iterator() {
+    public Iterator<Item> iterator() {
         return new RandomizedQueueIterator();
     }
 }
