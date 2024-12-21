@@ -7,6 +7,8 @@ public class Percolation {
     private final WeightedQuickUnionUF uf;
     private final int n;
     private int openSite;
+    private final int VIRTUAL_TOPNODE, VIRTUAL_BOTTOMNODE;
+
 
     // creates n-by-n grid, with all sites initially blocked
     public Percolation(int n) {
@@ -18,6 +20,8 @@ public class Percolation {
         this.openSite = 0;
         // Two additional top and bottom virtual nodes
         this.uf = new WeightedQuickUnionUF(n * n + 2);
+        VIRTUAL_TOPNODE = n * n;
+        VIRTUAL_BOTTOMNODE = n * n + 1;
     }
 
     // opens the site (row, col) if it is not open already
@@ -36,31 +40,24 @@ public class Percolation {
 
         int currIndex = row * n + col;
         // Open to the top
-        if (row - 1 >= 0 && grid[row - 1][col] == 1) {
-            int top = (row - 1) * n + col;
-            uf.union(currIndex, top);
-        }
+        openHelper(row - 1, col, currIndex);
         // Open to the left
-        if (col - 1 >= 0 && grid[row][col - 1] == 1) {
-            int left = row * n + (col - 1);
-            uf.union(currIndex, left);
-        }
+        openHelper(row, col - 1, currIndex);
         // Open to the bottom
-        if (row + 1 < n && grid[row + 1][col] == 1) {
-            int bottom = (row + 1) * n + col;
-            uf.union(currIndex, bottom);
-        }
+        openHelper(row + 1, col, currIndex);
         // Open to the right
-        if (col + 1 < n && grid[row][col + 1] == 1) {
-            int right = row * n + (col + 1);
-            uf.union(currIndex, right);
-        }
+        openHelper(row, col +1 , currIndex);
 
         // Connect to the virtual nodes
-        if (row == 0) uf.union(currIndex, n * n); // Connect to top virtual node
-        if (row == n - 1) uf.union(currIndex, (n * n) + 1); // Connect to bottom virtual node
+        if (row == 0) uf.union(currIndex, VIRTUAL_TOPNODE); // Connect to top virtual node
+        if (row == n - 1) uf.union(currIndex, VIRTUAL_BOTTOMNODE); // Connect to bottom virtual node
     }
-
+    private void openHelper(int row, int col, int currIndex){
+        if(row < n && row >= 0 && col < n && col >= 0 && grid[row][col] == 1){
+            int index = row * n + col;
+            uf.union(currIndex, index);
+        }
+    }
     // is the site (row, col) open?
     public boolean isOpen(int row, int col) {
         validateIndices(row, col);
@@ -83,8 +80,7 @@ public class Percolation {
         if (grid[row][col] == 0) return false;
 
         int currIndex = row * n + col;
-        int topIndex = n * n; // Virtual top node index
-        return uf.find(currIndex) == uf.find(topIndex);
+        return uf.find(currIndex) == uf.find(VIRTUAL_TOPNODE);
     }
 
     // returns the number of open sites
@@ -94,9 +90,7 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
-        int topIndex = n * n;
-        int bottomIndex = n * n + 1;
-        return uf.find(bottomIndex) == uf.find(topIndex);
+        return uf.find(VIRTUAL_BOTTOMNODE) == uf.find(VIRTUAL_TOPNODE);
     }
 
     // Validates if row and col are within the correct range
