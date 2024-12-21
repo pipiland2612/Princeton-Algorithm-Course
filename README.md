@@ -14,4 +14,4 @@ This repository contains my solutions and notes from the [Princeton Algorithms](
 ## How to Use  
 1. Clone the repository:  
    ```bash  
-   git clone https://github.com/yourusername/princeton-algorithms  
+   git clone https://github.com/pipiland2612/Princeton-Algorithm-Course
