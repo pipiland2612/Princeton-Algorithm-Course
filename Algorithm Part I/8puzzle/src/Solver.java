@@ -55,7 +55,7 @@ public class Solver {
         SearchNode node = solutionNode;
         while (node != null) {
             solution.addFirst(node.board);
-            node = node.prev();
+            node = node.prev;
         }
         return solution;
     }
@@ -86,10 +86,21 @@ public class Solver {
 
     }
 
-    private record SearchNode(Board board, int moves, Solver.SearchNode prev) implements Comparable<SearchNode> {
+    private static class SearchNode implements Comparable<SearchNode> {
+        Board board;
+        int moves;
+        SearchNode prev;
+
+        public SearchNode(Board board, int moves, SearchNode prev) {
+            this.board = board;
+            this.moves = moves;
+            this.prev = prev;
+        }
+
         @Override
         public int compareTo(SearchNode o) {
             return (this.board.manhattan() + this.moves) - (o.board.manhattan() + o.moves);
         }
     }
+
 }

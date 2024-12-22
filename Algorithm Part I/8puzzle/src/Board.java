@@ -78,7 +78,8 @@ public class Board {
 
     // does this board equal y?
     public boolean equals(Object y) {
-        if(!(y instanceof Board that))return false;
+        if (!(y instanceof Board)) return false;
+        Board that = (Board) y;
         if(this.SIZE != that.SIZE)return false;
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
