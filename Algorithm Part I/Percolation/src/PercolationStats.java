@@ -7,9 +7,10 @@ public class PercolationStats {
     private final int nSquared;
     private final int trials;
     private final double[] results;
-    // perform independent trials on an n-by-n grid
-    public PercolationStats(int n, int trials){
-        if(n <= 0 || trials <= 0)throw new IllegalArgumentException("Invalid");
+
+    // perform independent trials on an 1n-by-n grid
+    public PercolationStats(int n, int trials) {
+        if (n <= 0 || trials <= 0) throw new IllegalArgumentException("Invalid");
         this.n = n;
         this.nSquared = n * n;
         this.trials = trials;
@@ -21,43 +22,9 @@ public class PercolationStats {
         }
     }
 
-    private void calculateStats(Percolation perc, int k){
-        while (!perc.percolates()){
-            int i = StdRandom.uniformInt(1, n + 1);
-            int j = StdRandom.uniformInt(1, n + 1);
-            if(perc.isOpen(i,j))continue;
-            perc.open(i,j);
-        }
-        results[k] = ((perc.numberOfOpenSites() * 1.0) / nSquared);
-    }
-
-    // sample mean of percolation threshold
-    public double mean(){
-        return StdStats.mean(results);
-    }
-
-    // sample standard deviation of percolation threshold
-    public double stddev(){
-        return StdStats.stddev(results);
-    }
-
-    // low endpoint of 95% confidence interval
-    public double confidenceLo(){
-        double mean = mean();
-        double stddev = stddev();
-        return (mean - ((1.96 * stddev) / Math.sqrt(trials)));
-    }
-
-    // high endpoint of 95% confidence interval
-    public double confidenceHi(){
-        double mean = mean();
-        double stddev = stddev();
-        return (mean + ((1.96 * stddev) / Math.sqrt(trials)));
-    }
-
-   // test client (see below)
-   public static void main(String[] args) {
-        if(args.length != 0){
+    // test client (see below)
+    public static void main(String[] args) {
+        if (args.length != 0) {
             int n = Integer.parseInt(args[0]);
             int trials = Integer.parseInt(args[1]);
             PercolationStats ps = new PercolationStats(n, trials);
@@ -65,5 +32,37 @@ public class PercolationStats {
             StdOut.printf("stddev                  = %f%n", ps.stddev());
             StdOut.printf("95%% confidence interval = %f, %f%n", ps.confidenceLo(), ps.confidenceHi());
         }
+    }
+
+    private void calculateStats(Percolation perc, int k) {
+        while (!perc.percolates()) {
+            int i = StdRandom.uniformInt(1, n + 1);
+            int j = StdRandom.uniformInt(1, n + 1);
+            if (perc.isOpen(i, j)) continue;
+            perc.open(i, j);
+        }
+        results[k] = ((perc.numberOfOpenSites() * 1.0) / nSquared);
+    }
+
+    public double mean() {
+        return StdStats.mean(results);
+    }
+
+    public double stddev() {
+        return StdStats.stddev(results);
+    }
+
+    // low endpoint of 95% confidence interval
+    public double confidenceLo() {
+        double mean = mean();
+        double stddev = stddev();
+        return (mean - ((1.96 * stddev) / Math.sqrt(trials)));
+    }
+
+    // high endpoint of 95% confidence interval
+    public double confidenceHi() {
+        double mean = mean();
+        double stddev = stddev();
+        return (mean + ((1.96 * stddev) / Math.sqrt(trials)));
     }
 }

@@ -6,9 +6,8 @@ public class Percolation {
     private final int[][] grid;
     private final WeightedQuickUnionUF uf;
     private final int n;
-    private int openSite;
     private final int VIRTUAL_TOPNODE, VIRTUAL_BOTTOMNODE;
-
+    private int openSite;
 
     // creates n-by-n grid, with all sites initially blocked
     public Percolation(int n) {
@@ -46,18 +45,20 @@ public class Percolation {
         // Open to the bottom
         openHelper(row + 1, col, currIndex);
         // Open to the right
-        openHelper(row, col +1 , currIndex);
+        openHelper(row, col + 1, currIndex);
 
         // Connect to the virtual nodes
         if (row == 0) uf.union(currIndex, VIRTUAL_TOPNODE); // Connect to top virtual node
         if (row == n - 1) uf.union(currIndex, VIRTUAL_BOTTOMNODE); // Connect to bottom virtual node
     }
-    private void openHelper(int row, int col, int currIndex){
-        if(row < n && row >= 0 && col < n && col >= 0 && grid[row][col] == 1){
+
+    private void openHelper(int row, int col, int currIndex) {
+        if (row < n && row >= 0 && col < n && col >= 0 && grid[row][col] == 1) {
             int index = row * n + col;
             uf.union(currIndex, index);
         }
     }
+
     // is the site (row, col) open?
     public boolean isOpen(int row, int col) {
         validateIndices(row, col);
