@@ -127,6 +127,7 @@ public class Board {
         int[][] twin = copyBoard(this.board);
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
+                if(j + 1 >= SIZE)continue;
                 if(twin[i][j] != 0 && twin[i][j + 1] != 0){
                     // swapping
                     int tmp = twin[i][j];
