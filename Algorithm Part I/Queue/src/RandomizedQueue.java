@@ -3,24 +3,17 @@ import java.util.NoSuchElementException;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
 
-    // Use a doubly linked list to store items
-    private static class Node<Item> {
-        Item item;
-        Node<Item> next, prev;
-
-        public Node(Item item) {
-            this.item = item;
-        }
-    }
-
     private Node<Item> head, tail;
     private int size;
-
     // construct an empty randomized queue
     public RandomizedQueue() {
         head = null;
         tail = null;
         size = 0;
+    }
+
+    // unit testing (required)
+    public static void main(String[] args) {
     }
 
     // is the randomized queue empty?
@@ -124,6 +117,15 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return new RandomizedQueueIterator();
     }
 
+    private static class Node<Item> {
+        Item item;
+        Node<Item> next, prev;
+
+        public Node(Item item) {
+            this.item = item;
+        }
+    }
+
     private class RandomizedQueueIterator implements Iterator<Item> {
         private final Node<Item>[] nodes;
         private int currentIndex;
@@ -160,9 +162,5 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         public void remove() {
             throw new UnsupportedOperationException("Remove not supported");
         }
-    }
-
-    // unit testing (required)
-    public static void main(String[] args) {
     }
 }
