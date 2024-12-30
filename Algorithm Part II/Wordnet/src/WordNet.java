@@ -83,7 +83,7 @@ public class WordNet {
     }
 
     public boolean isNoun(String word) {
-        if (word == null || word.isEmpty()) return false;
+        if (word == null || word.isEmpty()) throw new IllegalArgumentException();
         return nounToIds.containsKey(word);
     }
 

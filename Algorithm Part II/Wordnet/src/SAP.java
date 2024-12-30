@@ -1,4 +1,8 @@
-import edu.princeton.cs.algs4.*;
+import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -123,11 +127,11 @@ public class SAP {
             }
 
             int shortestAncestor = -1, minDistance = Integer.MAX_VALUE;
-            for (int ancestor : ancestors) {
-                int dist = a.distTo(ancestor) + b.distTo(ancestor);
+            for (int anc : ancestors) {
+                int dist = a.distTo(anc) + b.distTo(anc);
                 if (dist < minDistance) {
                     minDistance = dist;
-                    shortestAncestor = ancestor;
+                    shortestAncestor = anc;
                 }
             }
             distance = minDistance == Integer.MAX_VALUE ? -1 : minDistance;
