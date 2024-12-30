@@ -31,33 +31,33 @@ class WordNetTest {
         assertTrue(nounSet.size() > 0, "Noun set should not be empty");
     }
 
-//    @Test
-//    void testDistance() {
-//        // Test valid distance
-//        int distance = wordNet.distance("hood", "1530s");
-//        assertTrue(distance >= 0, "Distance should be non-negative");
-//
-//        distance = wordNet.distance("hood", "9/11");
-//        assertTrue(distance >= 0, "Distance should be non-negative");
-//
-//        // Test invalid nouns
-//        assertThrows(IllegalArgumentException.class, () -> {
-//            wordNet.distance("hood", "nonexistent_word");
-//        }, "Distance should throw IllegalArgumentException for invalid nouns");
-//    }
+    @Test
+    void testDistance() {
+        // Test valid distance
+        int distance = wordNet.distance("hood", "1530s");
+        assertTrue(distance >= 0, "Distance should be non-negative");
 
-//    @Test
-//    void testSap() {
-//        // Test valid shortest ancestral path
-//        String sap = wordNet.sap("hood", "1530s");
-//        assertNotNull(sap, "Shortest ancestral path should not be null");
-//        assertEquals("hood", sap, "SAP should return the correct common ancestor");
-//
-//        // Test invalid nouns
-//        assertThrows(IllegalArgumentException.class, () -> {
-//            wordNet.sap("hood", "nonexistent_word");
-//        }, "SAP should throw IllegalArgumentException for invalid nouns");
-//    }
+        distance = wordNet.distance("hood", "9/11");
+        assertTrue(distance >= 0, "Distance should be non-negative");
+
+        // Test invalid nouns
+        assertThrows(IllegalArgumentException.class, () -> {
+            wordNet.distance("hood", "nonexistent_word");
+        }, "Distance should throw IllegalArgumentException for invalid nouns");
+    }
+
+    @Test
+    void testSap() {
+        // Test valid shortest ancestral path
+        String sap = wordNet.sap("hood", "1530s");
+        assertNotNull(sap, "Shortest ancestral path should not be null");
+        assertEquals("hood", sap, "SAP should return the correct common ancestor");
+
+        // Test invalid nouns
+        assertThrows(IllegalArgumentException.class, () -> {
+            wordNet.sap("hood", "nonexistent_word");
+        }, "SAP should throw IllegalArgumentException for invalid nouns");
+    }
 
     @Test
     void testEdgeCases() {
@@ -84,15 +84,15 @@ class WordNetTest {
         }, "Constructor should throw IllegalArgumentException for invalid WordNet structure");
     }
 
-//    @Test
-//    void testPerformance() {
-//        // Performance test: Ensure that large input files are handled properly
-//        long startTime = System.nanoTime();
-//        WordNet largeWordNet = new WordNet("large_synsets.txt", "large_hypernyms.txt");
-//        long endTime = System.nanoTime();
-//        long duration = endTime - startTime;
-//
-//        // Assert that the construction of large input files takes less than 2 seconds
-//        assertTrue(duration < 2_000_000_000, "WordNet constructor should handle large files in less than 2 seconds");
-//    }
+    @Test
+    void testPerformance() {
+        // Performance test: Ensure that large input files are handled properly
+        long startTime = System.nanoTime();
+        WordNet largeWordNet = new WordNet("large_synsets.txt", "large_hypernyms.txt");
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+
+        // Assert that the construction of large input files takes less than 2 seconds
+        assertTrue(duration < 2_000_000_000, "WordNet constructor should handle large files in less than 2 seconds");
+    }
 }

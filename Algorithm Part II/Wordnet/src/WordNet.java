@@ -82,7 +82,7 @@ public class WordNet {
         return nounToIds.keySet();
     }
 
-    private boolean isNoun(String word) {
+    public boolean isNoun(String word) {
         if (word == null || word.isEmpty()) return false;
         return nounToIds.containsKey(word);
     }
