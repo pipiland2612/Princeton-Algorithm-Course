@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.awt.Color;
+import java.util.Arrays;
 
 public class SeamCarverTest {
 
@@ -50,25 +51,121 @@ public class SeamCarverTest {
 
     // Test seam finding (placeholder until implemented)
     @Test
-    public void testSeamFinding() {
-        Picture picture = createTestPicture(6, 6);
+    public void testSeamFinding3x4() {
+        // Create a 3x4 picture with the given pixel energies
+        Picture picture = new Picture(3, 4);
+
+        // Top row
+        picture.set(0, 0, new Color(255, 0, 0));   // Dummy colors
+        picture.set(1, 0, new Color(255, 0, 0));
+        picture.set(2, 0, new Color(255, 0, 0));
+
+        // Second row
+        picture.set(0, 1, new Color(255, 0, 0));
+        picture.set(1, 1, new Color(100, 100, 100)); // Corresponds to 228.53
+        picture.set(2, 1, new Color(255, 0, 0));
+
+        // Third row
+        picture.set(0, 2, new Color(255, 0, 0));
+        picture.set(1, 2, new Color(80, 80, 80));   // Corresponds to 228.09
+        picture.set(2, 2, new Color(255, 0, 0));
+
+        // Bottom row
+        picture.set(0, 3, new Color(255, 0, 0));
+        picture.set(1, 3, new Color(255, 0, 0));
+        picture.set(2, 3, new Color(255, 0, 0));
+
+        // Initialize SeamCarver with the picture
         SeamCarver seamCarver = new SeamCarver(picture);
 
-        int[] horizontalSeam = seamCarver.findHorizontalSeam();
+        // Expected vertical seam
+        int[] expectedVerticalSeam = { 0, 1, 1, 1 };
+        // Expected horizontal seam
+        int[] expectedHorizontalSeam = { 0, 1, 1 };
+
+        // Calculate seams
         int[] verticalSeam = seamCarver.findVerticalSeam();
+        int[] horizontalSeam = seamCarver.findHorizontalSeam();
 
-        // Validate seam structure
-        Assertions.assertNotNull(horizontalSeam);
-        Assertions.assertNotNull(verticalSeam);
-        Assertions.assertEquals(6, horizontalSeam.length,
-                                "Horizontal seam length should match picture width.");
-        Assertions.assertEquals(6, verticalSeam.length,
-                                "Vertical seam length should match picture height.");
 
-        // Placeholder assertions for seam content
-        Assertions.assertTrue(isSeamValid(horizontalSeam, 6), "Horizontal seam is not valid.");
-        Assertions.assertTrue(isSeamValid(verticalSeam, 6), "Vertical seam is not valid.");
+        System.out.println("actual vertical: " + Arrays.toString(verticalSeam));
+        System.out.println("actual horizontal: " + Arrays.toString(horizontalSeam));
+        System.out.println("expected horizontal:" + Arrays.toString(expectedHorizontalSeam));
+        // Validate vertical seam
+        Assertions.assertArrayEquals(expectedVerticalSeam, verticalSeam,
+                                     "Vertical seam does not match the expected seam.");
+
+        // Validate horizontal seam
+        Assertions.assertArrayEquals(expectedHorizontalSeam, horizontalSeam,
+                                     "Horizontal seam does not match the expected seam.");
     }
+
+    @Test
+    public void testSeamFinding3x7() {
+        // Create a 3x7 picture with the given pixel energies
+        Picture picture = new Picture(3, 7);
+
+        // Top row
+        picture.set(0, 0, new Color(255, 0, 0));   // Dummy colors
+        picture.set(1, 0, new Color(255, 0, 0));
+        picture.set(2, 0, new Color(255, 0, 0));
+
+        // Second row
+        picture.set(0, 1, new Color(255, 0, 0));
+        picture.set(1, 1, new Color(100, 100, 100)); // Corresponds to 294.32
+        picture.set(2, 1, new Color(255, 0, 0));
+
+        // Third row
+        picture.set(0, 2, new Color(255, 0, 0));
+        picture.set(1, 2, new Color(80, 80, 80));   // Corresponds to 236.17
+        picture.set(2, 2, new Color(255, 0, 0));
+
+        // Fourth row
+        picture.set(0, 3, new Color(255, 0, 0));
+        picture.set(1, 3, new Color(120, 120, 120)); // Corresponds to 325.15
+        picture.set(2, 3, new Color(255, 0, 0));
+
+        // Fifth row
+        picture.set(0, 4, new Color(255, 0, 0));
+        picture.set(1, 4, new Color(90, 90, 90));   // Corresponds to 251.36
+        picture.set(2, 4, new Color(255, 0, 0));
+
+        // Sixth row
+        picture.set(0, 5, new Color(255, 0, 0));
+        picture.set(1, 5, new Color(110, 110, 110)); // Corresponds to 279.64
+        picture.set(2, 5, new Color(255, 0, 0));
+
+        // Bottom row
+        picture.set(0, 6, new Color(255, 0, 0));
+        picture.set(1, 6, new Color(255, 0, 0));
+        picture.set(2, 6, new Color(255, 0, 0));
+
+        // Initialize SeamCarver with the picture
+        SeamCarver seamCarver = new SeamCarver(picture);
+
+        // Expected vertical seam
+        int[] expectedVerticalSeam = { 0, 1, 1, 1, 1, 1, 1 };
+        // Expected horizontal seam
+        int[] expectedHorizontalSeam = { 2, 3, 2 };
+
+        // Calculate seams
+        int[] verticalSeam = seamCarver.findVerticalSeam();
+        int[] horizontalSeam = seamCarver.findHorizontalSeam();
+
+
+        System.out.println("actual vertical: " + Arrays.toString(verticalSeam));
+        System.out.println("expected vertical: " + Arrays.toString(expectedVerticalSeam));
+        System.out.println("actual horizontal: " + Arrays.toString(horizontalSeam));
+        System.out.println("expected horizontal:" + Arrays.toString(expectedHorizontalSeam));
+        // Validate vertical seam
+        Assertions.assertArrayEquals(expectedVerticalSeam, verticalSeam,
+                                     "Vertical seam does not match the expected seam.");
+
+        // Validate horizontal seam
+        Assertions.assertArrayEquals(expectedHorizontalSeam, horizontalSeam,
+                                     "Horizontal seam does not match the expected seam.");
+    }
+
 
     // Test seam removal and validity checks
     @Test

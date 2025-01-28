@@ -9,7 +9,7 @@ import edu.princeton.cs.algs4.Picture;
 import java.awt.Color;
 
 public class SeamCarver {
-    private static final double MAX_ENERGY = 195075.0;
+    private static final double MAX_ENERGY = 1000.0;
 
     private final Picture picture;
 
@@ -62,42 +62,7 @@ public class SeamCarver {
 
     // sequence of indices for vertical seam
     public int[] findVerticalSeam() {
-        double[][] energyTo = new double[width()][height()];
-        int[][] edgeTo = new int[width()][height()];
-
-        for (int i = 0; i < width(); i++) {
-            for (int j = 0; j < height(); j++) {
-                // Fill in the table, with src is the first row
-                energyTo[i][j] = j == 0 ? energy(i, j) : Double.POSITIVE_INFINITY;
-            }
-        }
-
-        // Relax from top to bottom (Topological order)
-        for (int y = 0; y < height() - 1; y++) {
-            for (int x = 0; x < width(); x++) {
-                if (x > 0) relax(x, y, x - 1, y + 1, energyTo, edgeTo, true);
-                relax(x, y, x, y + 1, energyTo, edgeTo, true);
-                if (x < width() - 1) relax(x, y, x + 1, y + 1, energyTo, edgeTo, true);
-            }
-        }
-
-        double minEnergy = Double.POSITIVE_INFINITY;
-        int minIndex = 0;
-        for (int x = 0; x < width(); x++) {
-            if (energyTo[x][height() - 1] < minEnergy) {
-                minEnergy = energyTo[x][height() - 1];
-                minIndex = x;
-            }
-        }
-
-        // Reconstruct the seam
-        int[] seam = new int[height()];
-        for (int y = height() - 1; y >= 0; y--) {
-            seam[y] = minIndex;
-            minIndex = edgeTo[minIndex][y];
-        }
-
-        return seam;
+        return new int[] { };
     }
 
     // remove horizontal seam from current picture
@@ -126,14 +91,6 @@ public class SeamCarver {
         }
     }
 
-    private void relax(int fromX, int fromY, int toX, int toY, double[][] energyTo,
-                       int[][] edgeTo, boolean isVertical) {
-        double energy = energy(fromX, fromY);
-        if (energyTo[toX][toY] > energyTo[fromX][fromY] + energy) {
-            energyTo[toX][toY] = energyTo[fromX][fromY] + energy;
-            edgeTo[toX][toY] = isVertical ? fromX : fromY;
-        }
-    }
 
     //  unit testing (optional)
     public static void main(String[] args) {
